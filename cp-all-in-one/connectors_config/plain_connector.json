@@ -1,0 +1,37 @@
+{
+    "name": "plain_connector",
+    "config": {
+        "connector.class": "io.debezium.connector.mysql.MySqlConnector",
+        "tasks.max": "1",
+        "database.hostname": "mysql",
+        "database.port": "3306",
+        "database.user": "appuser",
+        "database.password": "appuserpassword123",
+        "database.server.id": "111111",
+        "topic.prefix": "plain",
+        "database.include.list": "myappdb",
+        "schema.history.internal.kafka.bootstrap.servers": "broker:29092",
+        "schema.history.internal.kafka.topic": "db_schema_changes",
+
+        "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+        "key.converter.schemas.enable": "false",
+        "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+        "value.converter.schemas.enable": "false",
+        
+        "transforms": "unwrap,myReplaceField,castSSN,addFullName",
+
+        "transforms.unwrap.type": "io.debezium.transforms.ExtractNewRecordState",
+        "transforms.unwrap.delete.tombstone.handling.mode": "rewrite",
+        
+        "transforms.myReplaceField.type": "org.apache.kafka.connect.transforms.ReplaceField$Value",
+        "transforms.myReplaceField.exclude": "job",
+        "transforms.myReplaceField.renames": "firstName:first_name,lastName:last_name,createdAt:created_at,updatedAt:updated_at",
+        
+        "transforms.castSSN.type": "org.apache.kafka.connect.transforms.Cast$Value",
+        "transforms.castSSN.spec": "ssn:string",
+        
+        "transforms.addFullName.type": "org.apache.kafka.connect.transforms.InsertField$Value",
+        "transforms.addFullName.static.field": "fullName",
+        "transforms.addFullName.static.value": "__placeholder__"
+    }
+}

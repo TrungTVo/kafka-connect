@@ -2,6 +2,7 @@
 
 ## Overview
 Connect Kafka cluster with external MySQL database and stream data to Kafka topic via `debezium-connector-mysql` connector plugin.
+Sample Connector and SMTs (single message transformation) configs are provided in `cp-all-in-one/connectors_config` folder.
 
 ## Presetup
 ### Init Kafka Cluster with Confluent Platform
@@ -52,7 +53,7 @@ kafka-topics \
 
 Start Connector1:
 ```
-curl -i -X POST -H "Accept:application/json" -H  "Content-Type:application/json" http://localhost:8083/connectors/ -d @./cp-all-in-one/connectors_config/connector1.json
+curl -i -X POST -H "Accept:application/json" -H  "Content-Type:application/json" http://localhost:8083/connectors/ --data-binary @./cp-all-in-one/connectors_config/connector1.json
 ```
 
 ## List all connectors

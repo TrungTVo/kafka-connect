@@ -11,6 +11,11 @@
         "topic.prefix": "dbserver1",
         "database.include.list": "myappdb",
         "schema.history.internal.kafka.bootstrap.servers": "broker:29092",
-        "schema.history.internal.kafka.topic": "db_schema_changes"
+        "schema.history.internal.kafka.topic": "db_schema_changes",
+
+        "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+        "key.converter.schemas.enable": "false",
+        "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+        "value.converter.schemas.enable": "false"
     }
 }
